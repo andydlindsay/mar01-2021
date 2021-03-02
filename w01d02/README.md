@@ -4,60 +4,78 @@
 - [x] Curriculum overview
 - [x] Example problem workflow
 - [x] Problem solving tips
-- [ ] Review git workflow
+- [x] Review git workflow
 
 ### Curriculum Overview
-* Weeks 1 && 2: FOCAL - fundamentals of all programming
-* Week 3: Back End / server-side
-* Week 4: Front End / client-side (web 2.0)
-* Week 5: Data persistence / database
-* Week 6: Midterms
 
-* Week 7 - 8: React - Component-based
-* Week 9 - 10: Job simulation, Ruby/Rails
-* Week 11 - 12: Finals!
+- These [slides](https://docs.google.com/presentation/d/1m3R_aN4S5YoCBmXRbjaZQGatygWyZXYLcN-fkcP_HWA) contain a high-level overview of the Lighthouse Labs web bootcamp curriculum
 
-* 3 Technical Interviews W2, W4, W9
-* Every Friday exams!
-* Career services W5
+### Problem Solving
 
-### Compass
-* NOT an instruction manual/how to/source of all knowledge
-* To Do list
-* Google Fu
-* Watch youtube videos, read tutorials/blog posts, read docs
-* Instructions will become intentionally vague
+> Without requirements or design, programming is the art of adding bugs to an empty text file.
+>
+> -- <cite>Louis Srygley</cite>
 
-Problem:
-Write a program that takes in an unlimited number of command line arguments and prints out the sum of them. If any argument is not a whole number, skip it. Do not support negative numbers.
+* We have a variety of different approaches available to us as problem solvers
+* You will be exposed to these approaches over the course of the bootcamp
 
-```js
-// array of characters
-const message = '234957890237459072389047589273489572983475897';
+### Tips
 
-for (const char of message) {
-  console.log(message[i]) // h  e  l
-}
+* Work incrementally, writing and then executing small amounts of code
+  * Break the problem down into a series of smaller (and easier to understand) steps
+  * Small segments of code allow us to more easily see where errors/bugs are in our code
+* Use proper indentation
+  * Indentation helps us to see how our code is nested (eg. which lines of code are inside the function or if statement)
 
-```
+  ```js
+  // no indentation
+  const printArray = function (arr) {
+  arr.forEach(function(element) {
+  console.log(element);
+  });
+  };
+  console.log('All done!');
 
+  // proper indentation
+  const printArray = function (arr) {
+    arr.forEach(function(element) {
+      console.log(element);
+    });
+  };
+  console.log('All done!');
+  ```
 
-```js
-const varOne = process.argv[2]
-const varTwo = process.argv[3]
-const varTwo = process.argv[3]
-const varTwo = process.argv[3]
-const varTwo = process.argv[3]
-const varTwo = process.argv[3]
-const varTwo = process.argv[3]
-const varTwo = process.argv[3]
-```
+* Try to avoid copy/pasting code; type it out for yourself and try to understand what you are typing
+* Errors are your friend
+  * Try to decipher the error message before you Google it
+  * Errors help to show us where we made a mistake and being able to read them is a valuable skill
 
+### Logic Syntax Data (LSD)
 
+- Logic: have I told the computer exactly what to do?
+- Syntax: am I missing a curly brace?
+- Data: do I have the data I think I do in the format I expect?
 
+### Asking For Help
 
+* Remember the 15 minute rule
+* Typical research path: 
+  * **Google** the error message/what you want to accomplish; make sure to add the programming language (eg. JavaScript) to your search term (eg. "remove elements from array javascript")
+  * **StackOverflow** is useful for seeing multiple possible solutions to a problem (DO NOT copy and paste)
+  * **Mozilla Developer Network (MDN)**... read the documentation
 
+### Git Workflow
 
+* To create a git repository in a directory, run `git init`
+* `git status` will show you which files have been changed in the working directory
+* Use `git diff` to see what specifically was changed inside each file
+* To add files to the staging area, use `git add <filename>` or `git add .` to add all changes
+* Commit your changes using `git commit -m 'a meaningful commit message'`
+* Finally, push your code to github using `git push origin master` or `git push origin main`
 
+**NOTE:** This workflow is great for solo coding projects. When you work as part of a team (such as during mid-terms and finals), you will use a more advanced workflow.
 
-#
+### Useful Links
+- [Mozilla Developer Network](https://developer.mozilla.org/en-US/)
+- [Node Documentation](https://nodejs.org/en/docs/)
+- [Python Tutor](http://pythontutor.com/javascript.html#mode=edit)
