@@ -1,9 +1,9 @@
 # W01D02 - The Dev Workflow
 
 ### To Do
-- [ ] Curriculum overview
-- [ ] Example problem workflow
-- [ ] Problem solving tips
+- [x] Curriculum overview
+- [x] Example problem workflow
+- [x] Problem solving tips
 - [ ] Review git workflow
 
 ### Curriculum Overview
@@ -31,7 +31,27 @@
 Problem:
 Write a program that takes in an unlimited number of command line arguments and prints out the sum of them. If any argument is not a whole number, skip it. Do not support negative numbers.
 
+```js
+// array of characters
+const message = '234957890237459072389047589273489572983475897';
 
+for (const char of message) {
+  console.log(message[i]) // h  e  l
+}
+
+```
+
+
+```js
+const varOne = process.argv[2]
+const varTwo = process.argv[3]
+const varTwo = process.argv[3]
+const varTwo = process.argv[3]
+const varTwo = process.argv[3]
+const varTwo = process.argv[3]
+const varTwo = process.argv[3]
+const varTwo = process.argv[3]
+```
 
 
 
