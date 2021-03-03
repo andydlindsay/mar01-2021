@@ -3,8 +3,8 @@
 ### To Do
 - [x] Review primitive types
 - [x] Objects!
-- [ ] Passing primitives and objects to functions
-- [ ] Functions inside objects (using `this`)
+- [x] Passing primitives and objects to functions
+- [x] Functions inside objects (using `this`)
 
 ### Objects
 * array.push, console.log
@@ -13,7 +13,7 @@
 * If you explicitly know the name of the key, use dot syntax
 * If the key is a variable, use square bracket
 
-
+* use for..of with everything except objects, because 'of' and 'object' both start with 'o'
 
 
 

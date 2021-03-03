@@ -9,14 +9,14 @@ const studentOne = {
   friends: ['Bob', 'Carol']
 };
 
-const funcReturnObj = function() {
+const funcReturnObj = function(name) {
   const myObj = {
-    name: 'bob'
+    name: name
   };
   return myObj;
 };
 
-const returnVal = funcReturnObj();
+const returnVal = funcReturnObj('Carol');
 console.log('returnVal', returnVal);
 
 studentOne.name = 'Bob';
