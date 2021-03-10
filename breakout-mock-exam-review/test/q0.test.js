@@ -1,4 +1,4 @@
-const { assert } = require('chai');
+const { assert, AssertionError } = require('chai');
 const { sum, count, mean } = require('../q0');
 
 describe('q0 tests', () => {
@@ -45,6 +45,12 @@ describe('q0 tests', () => {
       let input = [6,2,3,4,9,6,1,0,5];
       let result = mean(input);
       assert.equal(result, 4);
+    });
+
+    it('returns null if the array is empty', () => {
+      const actual = mean([]);
+      const expected = null;
+      assert.equal(actual, expected);
     });
 
   });

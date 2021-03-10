@@ -16,7 +16,10 @@
  *    9
  */
 const count = function(arr) {
+  const result = arr.length;
+  return result;
 
+  // return arr.length;
 };
 
 /* ===========================================================================
@@ -32,12 +35,26 @@ const count = function(arr) {
  *    36
  */
 const sum = function(arr) {
+  // declare a variable to hold the total
+  let total = 0;
 
+  // iterate through the array
+  for (const num of arr) {
+    // add each element to the total variable
+    total += num;
+  }
+
+  // return the total
+  return total;
 };
 
 // To be used by mean. Do not alter.
 const round = function(number) {
   return Math.round(number * 100) / 100;
+  // 3.14158723
+  // 314.158723
+  // 314
+  // 3.14
 };
 
 /* ===========================================================================
@@ -54,7 +71,23 @@ const round = function(number) {
  *    4
  */
 const mean = function(arr) {
+  // check precondition
+  // check if array has no values, if so, return null
+  if (arr.length === 0) {
+    return null;
+  }
 
+  // total the array elements
+  const total = sum(arr);
+
+  // get the amount of array elements
+  const numOfElements = count(arr);
+
+  // divide the total by the numOfElements
+  const average = total / numOfElements;
+
+  // return the rounded total
+  return round(average);
 };
 
 // Don't change below:
