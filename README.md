@@ -4,3 +4,5 @@
 * [W01D03 - Objects in JS](/w01d03)
 * [W01D04 - Callbacks!](/w01d04)
 * [BREAKOUT - Mock Exam Review](/breakout-mock-exam-review)
+* [W03D01 - Web Servers 101](/w03d01)
+* [W03D04 - Security & Real World HTTP Servers](/w03d04)
