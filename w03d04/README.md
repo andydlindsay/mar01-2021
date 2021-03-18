@@ -8,75 +8,122 @@
 - [x] More HTTP methods
 - [x] Method Override [Stretch]
 
-### Hashing
-* one-way process
-* plaintext password => hashing function => alpha-numeric string (hash)
-* salt => extra string that gets fed into the hash function
-* comparison function built-in to the hashing software
+### Storing Passwords
+* We **never** want to store passwords as plain text
+* Passwords should always be _hashed_ 
+* **Hashing**:
+  * The original string is passed into a function that performs some kind of transformation on it and returns a different string (the _hash_)
+  * This is a one way process: a hashed value cannot be retrieved
+* We make hashing more secure by adding a _salt_ to the original string prior to hashing
+* This [helps to protect against Rainbow Table attacks](https://stackoverflow.com/questions/420843/how-does-password-salt-help-against-a-rainbow-table-attack)
 
-### Encryption
-* plaintext => encryption function => encrypted string
-* encrypted string => decryption function => plaintext
+### Encrypted Cookies
+* Plain text cookies can be manipulated by users
+* It's better practice to use _encrypted_ cookies
+* **Encryption**:
+  * Similar to hashing, the string is scrambled/transformed by a function
+  * This is a two-way process: encrypted strings can be decrypted by the intended recipient
 
+### HTTP Secure (HTTPS)
+* HTTPS uses Transport Layer Security (TLS) to encrypt communication between client and server
+* Encrypted using asymmetric cryptography which uses a public key and private key system
+* The public key is available to anyone who wants it and is used to encrypt the communication
+* The private key is known only to the receiver and is used to decrypt the communication
 
-http://localhost:9876/login
-* plaintext protocol
-* person in the middle attack
+### When to use...
+* Plain Text Cookies:
+  * Almost never use plain cookies
+  * Maybe for:
+    * Language selection
+    * Shopping cart for non-logged in users
+    * Analytics
+* Encrypted Cookies:
+  * Do this by default
+  * Only store a way to uniquely identify the user (eg. `user_id` or `username` can be used to look up values in a database or object)
 
-### HTTPS
-* HTTP Secure
-* Private key/public key
-* Public key
-  * available to everyone who wants it
-  * used to encrypt the data
-* Private key
-  * never shared with anyone
-  * used to decrypt the data
+### REST (Representational State Transfer)
 
-### REST
-* Naming convention for routes
-* REpresentational State Transfer
-* routes we use to interact with our resources represent the underlying data structure
-* RESTful => you are using REST
+* REST means that the path that we are going to should represent the data being transferred
+* An API that uses the REST convention is said to be RESTful
+* RESTful routes look like:
 
-GET /my-maps
-GET /the-pins-for-my-maps
+  | **Method** | **Path** | **Purpose** |
+  |:---:|:---|:---|
+  | GET | /resources | Retrieve all of a resource (Browse) |
+  | GET | /resources/:id | Retrieve a particular resource (Read) |
+  | POST | /resources/:id | Update a resource (Edit) |
+  | POST | /resources | Create a new resource (Add) |
+  | POST | /resources/:id/delete | Delete an existing resource (Delete) |
 
-Browse  GET   /urls
-Read    GET   /urls/:id (/urls/abscdf)
-Edit    POST  /urls/:id/edit
-Add     POST  /urls
-Delete  POST  /urls/:id/delete
+* RESTful API's have some advantages:
+  * If I know that your API is RESTful, then I can easily guess at what endpoints you have defined and I don't need to read your documentation to figure it out
+  * Results in clean URLs (ie. `/resource` instead of `/get-my-resource`)
+  * The desired action is implied by the HTTP verb
+  * This method of specifying URLs is chainable (eg. `/user/123`, `/user/123/resource` or `/user/123/resource/456`)
 
-* maps, pins
+* Selectors are always plural (eg. `/resources`, `/users`)
+* Actions are always singular (eg. `/login`, `/register`)
 
-Browse  GET   /maps
+### Express Alternatives
+- [Restify (JS)](http://restify.com/)
+- [Koa (JS)](https://koajs.com/)
+- [Hapi (JS)](https://hapi.dev/api/?v=19.0.5)
+- [Sinatra (Ruby)](http://sinatrarb.com/documentation.html)
+- [Django (Python)](https://www.djangoproject.com/)
 
-Read    GET   /maps/:id/pins
-Edit    POST  /maps/:id/pins/:pin_id
+### More HTTP Methods
+- We have more [*verbs*](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) available to us than just `GET` and `POST`
+- Popular ones are `PUT`, `PATCH`, and `DELETE`
+- `PUT`: used to replace an existing resource
+- `PATCH`: update part of an exisiting resource
+- `DELETE`: delete an existing resource
+- We can access these other methods via AJAX requests (we'll introduce you to AJAX in week 4) or by using the [`method-override`](https://www.npmjs.com/package/method-override) package
+- Using these new verbs, our routes table now looks like:
 
-Edit    POST  /maps/:id/edit
-Add     POST  /maps
-Delete  POST  /maps/:id/delete
+  | **Method** | **Path** | **Purpose** |
+  |:---:|:---|:---|
+  | GET | /resources | Retrieve all of a resource (Browse) |
+  | GET | /resources/:id | Retrieve a particular resource (Read) |
+  | PUT | /resources/:id | Replace a resource (Edit) |
+  | PATCH | /resources/:id | Update a resource (Edit) |
+  | POST | /resources | Create a new resource (Add) |
+  | DELETE | /resources/:id | Delete an existing resource (Delete) |
 
-### HTTP Methods
-* GET, POST
-* PUT, PATCH, DELETE
-* AJAX
+### Modular Routing
+- Store routes in multiple files to keep them organized
+- In Express, we need to use the Express.Router() method to give us back a **router** object
+- All routes will be added to this _router_ object
+- Finally, we export the _router_ object from the file to be imported into our Express server file (eg. `server.js`)
 
-Browse  GET    /urls
-Read    GET    /urls/:id
-Edit    PATCH  /urls/:id
-Add     POST   /urls
-Delete  DELETE /urls/:id
+  ```js
+  // post-router.js
+  const express = require('express');
+  const router = express.Router();
 
-req.query.source
+  router.get('/', (req, res) => {
+    // typical route handler in here
+    res.send('hello world');
+  });
 
-https://www.google.com/search?
-safe=active&
-sxsrf=ALeKk03R2SfJaEiJkP8smvXhHH3xOcwZZw%3A1616091636548&
-source=hp&
-ei=9JlTYO6_HovP0PEPh9S7sAc&iflsig=AINFCbYAAAAAYFOoBPzxj7eKI_IczVFYH2hsVUkSodUs&
-q=query+string&
-oq=query+string&
-gs_lcp=Cgdnd3Mtd2l6EAMyBAgjECcyBwgAEIcCEBQyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADoFCAAQkQI6BQgAELEDOgUILhCxAzoICAAQsQMQgwE6CAguEMcBEK8BOggILhCxAxCDAToCCC46BAgAEApQtwZY5w5gwA9oAHAAeACAAWyIAfMGkgEEMTEuMZgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz&ved=0ahUKEwjuiay_urrvAhWLJzQIHQfqDnYQ4dUDCAk&uact=5
+  module.exports = router;
+
+  // server.js
+  const postRouter = require('./routes/post-router');
+  app.use('/posts', postRouter);
+  ```
+
+### JSON API's
+- So far, our servers have been returning server-side rendered templates, but our Express server can be configured to return different types of information including strings/objects (`res.send`), files (`res.sendFile`), and JSON (`res.json`)
+- JSON API's are concerned only with sending data (as opposed to HTML), so they are typically consumed with AJAX requests
+
+### Useful Links
+* [Plain Text Offenders](https://github.com/plaintextoffenders/plaintextoffenders/blob/master/offenders.csv)
+* [How Does Encryption Work?](https://medium.com/searchencrypt/what-is-encryption-how-does-it-work-e8f20e340537)
+* [What is HTTPS?](https://www.cloudflare.com/learning/ssl/what-is-https/)
+* [Asymmetric Cryptography](https://searchsecurity.techtarget.com/definition/asymmetric-cryptography)
+* [Client Session vs Server Session](http://www.rodsonluo.com/client-session-vs-server-session)
+* [Resource Naming](https://restfulapi.net/resource-naming/)
+* [Express Middleware](https://expressjs.com/en/guide/using-middleware.html)
+* [Method Override Package](https://www.npmjs.com/package/method-override)
+* [Express Response Object](http://expressjs.com/en/api.html#res)
+* [List of common Express middleware](https://expressjs.com/en/resources/middleware.html)
