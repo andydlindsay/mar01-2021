@@ -1,15 +1,32 @@
 const express = require('express');
 const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bcrypt = require('bcrypt');
+const methodOverride = require('method-override');
 
 const app = express();
 const port = process.env.PORT || 9876;
 
 // middleware
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(express.static('public'));
+
+app.use(cookieSession({
+  name: 'mar01',
+  keys: ['my secret key', 'yet another secret key']
+}));
+
+app.use(methodOverride('_method'));
+
+app.use((req, res, next) => {
+  if (req.query._method) {
+    req.method = req.query._method;
+    next();
+  }
+});
 
 app.set('view engine', 'ejs');
 
@@ -17,7 +34,7 @@ app.set('view engine', 'ejs');
 const users = {
   jstamos: {
     username: 'jstamos',
-    password: '1234'
+    password: '$2b$10$7bOWn.DFgs9HkhzsTpuD1u6pReqRouddq.rO5xSKdWMZGXRehkS8e'
   },
   alice: {
     username: 'alice',
@@ -35,7 +52,9 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/protected', (req, res) => {
-  const username = req.cookies.username;
+  // const username = req.cookies.username;
+  const username = req.session.username;
+
   if (!username) {
     return res.redirect('/login');
   }
@@ -53,7 +72,8 @@ app.get('*', (req, res) => {
 });
 
 // POST routes
-app.post('/login', (req, res) => {
+// PATCH /login
+app.patch('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -62,28 +82,40 @@ app.post('/login', (req, res) => {
     return res.status(401).send('No user with that username found');
   }
 
-  if (password !== user.password) {
-    return res.status(401).send('Password incorrect');
-  }
+  bcrypt.compare(password, user.password)
+    .then((result) => {
+      if (result) {
+        // res.cookie('username', user.username);
+        req.session.username = user.username;
+        res.redirect('/protected');
+      } else {
+        return res.status(401).send('Password incorrect');
+      }
+    });
 
-  res.cookie('username', user.username);
-  res.redirect('/protected');
 });
 
 app.post('/register', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  users[username] = {
-    username,
-    password
-  };
-
-  res.redirect('/login');
+  bcrypt.genSalt(10)
+    .then((salt) => {
+      return bcrypt.hash(password, salt);
+    })
+    .then((hash) => {
+      users[username] = {
+        username,
+        password: hash
+      };
+      console.log(users);
+      res.redirect('/login');
+    });
 });
 
 app.post('/logout', (req, res) => {
-  res.clearCookie('username');
+  // res.clearCookie('username');
+  req.session = null;
   res.redirect('/login');
 });
 
