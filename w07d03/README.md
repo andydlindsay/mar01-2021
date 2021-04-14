@@ -4,8 +4,8 @@
 - [x] Pure Functions and Side Effects
 - [x] `useEffect`
 - [x] Cleanup
-- [ ] Dependencies
-- [ ] _useEffect_ Flow
+- [x] Dependencies
+- [x] _useEffect_ Flow
 
 ### Pure Functions
 * function that returns the same value given the same arguments
