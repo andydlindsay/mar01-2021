@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import StyledComponent from './StyledComponent';
 
 const Styled = () => {
+  const Wrapped = styled(StyledComponent)`
+    color: magenta;
+    background-color: cyan;
+  `;
+
   const Heading = styled.h1`
     color: purple;
     background-color: green;
@@ -21,6 +27,9 @@ const Styled = () => {
 
       <Custom jimmy>I am a custom component</Custom>
       <Custom>Is this one any different?</Custom>
+
+      <Wrapped>Did this work?</Wrapped>
+      <StyledComponent>Just the regular one</StyledComponent>
     </div>
   );
 };

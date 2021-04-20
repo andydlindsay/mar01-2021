@@ -4,7 +4,9 @@ import About from './components/About';
 import Products from './components/Products';
 import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Styled from './components/Styled';
+// import Styled from './components/Styled';
+// import Parent from './components/Parent';
+import UseRef from './components/UseRef';
 
 const App = () => {
   return (
@@ -24,7 +26,9 @@ const App = () => {
         </Switch>
 
       </Router> */}
-      <Styled />
+      {/* <Styled /> */}
+      {/* <Parent /> */}
+      <UseRef />
     </div>
   );
 };
