@@ -27,6 +27,6 @@
   ],
   "proxy": "https://cors-anywhere.herokuapp.com/",
   "devDependencies": {
-    "cypress": "^7.1.0"
+    "cypress": "6.9.1"
   }
 }
