@@ -10,34 +10,66 @@
 * [x] Blocks and Lambdas
 * [x] Classes
 
-### The purpose of W9
-* Not to learn Rails/Ruby
-* Real-world practice
-* Existing codebase
+### Classes
+* You declare a class in Ruby with the class keyword.
 
-### Ruby
-* Designed to be fun to read/write
-* Very minimal
-* Back-end language
-* Synchronous
-
-
-```js
-let counter;
-counter = 0;
-
-const counter = 0;
-
-const $div = $('<div>');
+```Ruby
+class Car
+end
 ```
 
-ORM
-SELECT * FROM users JOIN posts ON ...
+#### Initialize
+* `initialize` is a special method in classes that is called when a class object is created with .new
+* `initialize` methods are used to set the initial state of an object.
 
-user.posts
-post.user
+```Ruby
+class Car
+ def initialize (color, year, model)
+   @color = color
+   @year = year
+   @model = model
+ end
+end
 
+my_car = Car.new("red", 2007, "matrix")
+```
 
+#### Accesor && Readers
+* You can set default read and write methods for instance variables with accessor and readers.
 
+```Ruby
+class Car
+ attr_accessor :color
+ attr_reader :year
+ attr_writer :model
+ def initialize (color, year, model)
+   @color = color
+   @year = year
+   @model = model
+ end
+end
+```
 
+Same as
 
+```Ruby
+class Car
+ def initialize (color, year, model)
+   @color = color
+   @year = year
+   @model = model
+ end
+ def color
+   @color
+ end
+ def color=(value)
+   @color = value
+ end
+ def year
+   @year
+ end
+ def model=(value)
+   @model = value
+ end
+end
+```
