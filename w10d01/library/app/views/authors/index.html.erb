@@ -1,0 +1,8 @@
+<h1>All authors</h1>
+
+<% @authors.each do |author| %>
+  <div class="author">
+    <h2>Name: <%= author.name %> - <%= link_to 'Books', author_books_path(author) %></h2> 
+  </div>
+<% end %>
+

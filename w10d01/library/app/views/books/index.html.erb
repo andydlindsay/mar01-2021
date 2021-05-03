@@ -1,0 +1,12 @@
+<h1>All the books for <%= @author.name %>!</h1>
+<%= link_to 'Authors', authors_path %>
+
+<% @author.books.each do |book| %>
+  <div class="book" style="border: 1px solid black;">
+    <h2>Title: <%= book.title %></h2>
+    <h3>Genre: <%= book.genre %></h3>
+    <h3>Publisher: <%= book.publisher %></h3>
+    <h3>Author: <%= book.author.name %></h3>
+  </div>
+<% end %>
+

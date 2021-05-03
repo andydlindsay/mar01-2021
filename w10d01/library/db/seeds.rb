@@ -15,7 +15,7 @@ author_two = Author.create(name: Faker::Book.author)
 author_three = Author.create(name: Faker::Book.author)
 
 # grab the newly created authors
-authors = Author.all.uniq.to_a
+authors = Author.all.to_a
 
 # create books
 puts "creating books"
