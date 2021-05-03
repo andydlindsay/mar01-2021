@@ -1,0 +1,7 @@
+<h1>All the locations!</h1>
+
+<% @locations.each do |location| %>
+  <div class="location">
+    <h2>Location: <%= location.location %> - <%= link_to('Characters', location_characters_path(location)) %></h2>
+  </div>
+<% end %>
