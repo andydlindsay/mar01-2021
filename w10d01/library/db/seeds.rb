@@ -9,17 +9,17 @@
 puts "Seeding data..."
 
 # create authors
-puts "creating authors"
-author_one = Author.create(name: Faker::Book.author)
-author_two = Author.create(name: Faker::Book.author)
-author_three = Author.create(name: Faker::Book.author)
+puts "Creating authors"
+10.times do
+  Author.create(name: Faker::Book.author)
+end
 
 # grab the newly created authors
 authors = Author.all.to_a
 
 # create books
-puts "creating books"
-50.times do
+puts "Creating books"
+100.times do
   Book.create(
     author: authors.sample,
     title: Faker::Book.title,
