@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+  <title>Document</title>
+</head>
+<body style="background-color: black; color: lavender;">
+  <div id="root">
+    <h2>{{ message }}</h2>
+    <!-- <h2 v-bind:title="tooltip">Hello {{ name }}</h2> -->
+    <h2 :title="tooltip">Hello two {{ name }}</h2>
+
+    <!-- <form v-on:submit.prevent="addSong"> -->
+    <form @submit.prevent="addSong">
+      <input v-model="newSong" />
+      <button type="submit">Add a song</button>
+    </form>
+
+    <h2>{{ reverseNewSong }}</h2>
+
+    <ul>
+      <li v-for="(gratefulDeadSong, index) of gratefulDeadSongs">
+        {{ gratefulDeadSong }} ({{ index }})
+      </li>
+    </ul>
+  </div>
+
+
+  <script>
+    const app = new Vue({
+      el: '#root',
+      data: {
+        message: 'Hello Vue!',
+        name: 'Alice',
+        gratefulDeadSongs: [
+          'Cassidy',
+          'Touch of Grey',
+          'St Stephen'
+        ],
+        tooltip: 'welcome to our site',
+        newSong: ''
+      },
+      methods: {
+        addSong() {
+          // console.log('button clicked');
+          this.gratefulDeadSongs.push(this.newSong);
+          this.newSong = '';
+        }
+      },
+      computed: {
+        reverseNewSong() {
+          return this.newSong.split('').reverse().join('');
+        }
+      },
+      watch: {
+        newSong() {
+          console.log('the value of newSong has changed');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
