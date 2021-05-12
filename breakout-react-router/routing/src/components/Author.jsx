@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import {useParams, useHistory, useLocation} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 
 const Author = () => {
   const params = useParams();
